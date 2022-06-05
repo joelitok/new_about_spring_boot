@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.securnew.sercurenew.domain.AppRole;
@@ -25,6 +26,7 @@ public class UserServiceImpl  implements UserService, UserDetailsService{
 
     private final AppUserRepo appUserRepo;
     private final AppRoleRepo appRoleRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,6 +50,7 @@ public class UserServiceImpl  implements UserService, UserDetailsService{
     @Override
     public AppUser saveUser(AppUser appUser) {
         log.info("Saving new user {} to the database",appUser.getUsername());
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         return appUserRepo.save(appUser);
     }
 
