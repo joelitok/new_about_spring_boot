@@ -14,10 +14,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @Data @AllArgsConstructor @NoArgsConstructor
-public class AppUser{
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -25,5 +29,5 @@ public class AppUser{
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-	private Collection<AppRole> roles = new ArrayList<>();
+    private Collection<AppRole> roles = new ArrayList<>();
 }
